@@ -1,0 +1,29 @@
+@import 'tufte-css/tufte.css';
+
+body {
+  padding: 2rem 1rem;
+}
+
+article {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.85em;
+}
+
+.sidenote,
+.marginnote {
+  border-left: 2px solid #e8e2d8;
+  padding-left: 0.8rem;
+}
+
+.widget-island {
+  margin: 2.5rem 0;
+  border: 1px solid #e2ddd6;
+  border-radius: 6px;
+  padding: 1.5rem;
+  background: #fdfcfa;
+}

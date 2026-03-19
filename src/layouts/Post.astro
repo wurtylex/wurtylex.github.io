@@ -1,0 +1,22 @@
+---
+import Base from './Base.astro';
+import '../styles/tufte-overrides.css';
+
+const { frontmatter } = Astro.props;
+---
+
+<Base title={frontmatter.title} description={frontmatter.description}>
+  <article>
+    <h1>{frontmatter.title}</h1>
+
+    <p class="subtitle">
+      {frontmatter.description}
+      &nbsp; &middot; &nbsp;
+      <time>{frontmatter.date}</time>
+    </p>
+
+    <section>
+      <slot />
+    </section>
+  </article>
+</Base>
