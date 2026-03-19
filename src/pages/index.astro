@@ -2,7 +2,8 @@
 import Base from '../layouts/Base.astro';
 import '../styles/tufte-overrides.css';
 
-const posts = await Astro.glob('./**/index.mdx');
+const postFiles = import.meta.glob('./**/index.mdx', { eager: true });
+const posts = Object.values(postFiles) as any[];
 const sorted = posts.sort((a, b) =>
   new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
 );
