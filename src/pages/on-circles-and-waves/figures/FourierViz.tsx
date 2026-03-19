@@ -171,13 +171,15 @@ export default function FourierViz() {
           onClick={() => setRunning(r => !r)}
           style={{
             fontFamily: 'inherit',
-            fontSize: '12px',
-            padding: '3px 14px',
-            border: '1px solid currentColor',
-            borderRadius: '3px',
+            fontSize: '11px',
+            padding: '2px 12px',
+            border: '1px solid #e8956d',
+            borderRadius: '2px',
             background: 'transparent',
             cursor: 'pointer',
-            opacity: 0.7,
+            letterSpacing: '0.05em',
+            color: '#e8956d',
+            opacity: 0.8,
           }}
         >
           {running ? 'pause' : 'play'}

@@ -28,8 +28,8 @@ code {
   text-align: center;
   background: transparent;
   max-width: 55%;
+  margin: 0 auto;
 }
-
 
 .katex-display {
   display: block;
