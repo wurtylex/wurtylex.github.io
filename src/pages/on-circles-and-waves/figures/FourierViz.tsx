@@ -158,12 +158,10 @@ export default function FourierViz() {
           <span style={{ color: 'inherit', opacity: 0.7 }}>Terms:</span>
           <input
             type="range"
-            min={1}
-            max={11}
-            step={1}
+            min={1} max={11} step={1} 
             value={terms}
             onChange={e => setTerms(Number(e.target.value))}
-            style={{ width: '120px' }}
+            style={{ width: '120px', accentColor: '#e8956d' }}
           />
           <span style={{ fontVariantNumeric: 'tabular-nums', opacity: 0.9 }}>{terms}</span>
         </label>
