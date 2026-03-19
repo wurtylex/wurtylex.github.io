@@ -1,0 +1,54 @@
+---
+layout: ../../layouts/Post.astro
+title: On Circles and Waves
+description: How adding together simple rotations can draw anything.
+date: 2025-03-19
+---
+
+import SN from '../../components/SN.astro';
+import FourierViz from './figures/FourierViz';
+
+Joseph Fourier's central claim, published in 1822, was that *any* periodic
+signal — no matter how jagged or irregular — can be expressed as a sum of
+simple sine waves.<SN id="s1">Fourier made this claim in the context of heat
+diffusion. His contemporaries, including Lagrange, were deeply skeptical. It
+took decades for the result to be fully accepted and properly formalised.</SN>
+
+This seems implausible at first. A square wave has sharp corners. A sine wave
+is smooth. How can you sum smooth things and get something with corners?
+
+The answer is that you can get arbitrarily *close* with enough terms. Each
+sine wave you add fills in the corners a little more. The square wave is the
+limit of an infinite sum — something you approach but never quite reach with
+finitely many terms.<SN id="s2">The overshoot you see near the corners when
+using a finite number of terms is called the **Gibbs phenomenon**. It was
+first noticed by Henry Wilbraham in 1848, and then independently rediscovered
+by J. Willard Gibbs in 1899. The overshoot is always about 9% of the jump
+height, no matter how many terms you add.</SN>
+
+The widget below makes this concrete. Each rotating arm corresponds to one
+term in the series. The first arm rotates once per cycle and accounts for
+the fundamental frequency. Each subsequent arm rotates at an odd multiple of
+that speed and is proportionally shorter.
+
+<FourierViz client:visible />
+
+The formula for the square wave approximation is worth looking at directly:
+
+$$f(t) = \frac{4}{\pi} \sum_{n=1,3,5,...}^{N} \frac{1}{n} \sin(n t)$$
+
+Notice that only odd harmonics appear.<SN id="s3">This follows from the
+symmetry of the square wave. Because it is an odd function — symmetric under
+both time-reversal and sign-flip — its Fourier series contains only sine
+terms. And because it has half-wave symmetry, only odd harmonics survive.
+Even harmonics cancel out.</SN> The coefficient on each term shrinks as
+$1/n$, which is why higher harmonics matter less and less.
+
+What Fourier gave us was not just a mathematical trick but a new way of
+*seeing* signals. Instead of thinking about a waveform as a shape in time,
+you can think of it as a recipe: a list of frequencies and their amplitudes.
+This is exactly what your phone's microphone does when it listens to
+music,<SN id="s4">The Fast Fourier Transform algorithm, developed by Cooley
+and Tukey in 1965, makes this computation practical. It runs in O(n log n)
+rather than O(n²), which matters enormously when n is large.</SN> and what
+an MRI scanner does when it reconstructs an image from radio signals.
