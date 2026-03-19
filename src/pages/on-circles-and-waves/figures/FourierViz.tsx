@@ -1,26 +1,54 @@
 import { useEffect, useRef, useState } from 'react';
 
-const W = 560;
-const H = 260;
-const CX = 130; // center of rotating arms
-const CY = 130;
-const WAVE_X_START = 280;
-const WAVE_WIDTH = 260;
-
 export default function FourierViz() {
+  const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const frameRef = useRef(null);
   const tRef = useRef(0);
-  const [terms, setTerms] = useState(3);
-  const [running, setRunning] = useState(true);
   const trailRef = useRef([]);
 
+  const [terms, setTerms] = useState(3);
+  const [running, setRunning] = useState(true);
+  
+  // Track dynamic dimensions instead of using constants
+  const [dimensions, setDimensions] = useState({ w: 0, h: 0 });
+
+  // 1. Observe container width and maintain aspect ratio
   useEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const width = entry.contentRect.width;
+        // Keep the original 560x260 aspect ratio
+        const height = width * (260 / 560);
+        setDimensions({ w: width, h: height });
+      }
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Reset trail when terms or dimensions change
+  useEffect(() => {
+    trailRef.current = [];
+  }, [terms, dimensions]);
+
+  // 2. Draw using dynamic dimensions
+  useEffect(() => {
+    const { w: W, h: H } = dimensions;
+    if (W === 0 || H === 0) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    // Scale for device pixel ratio
+    // Proportional coordinate calculations
+    const CX = W * (130 / 560); 
+    const CY = H / 2;
+    const WAVE_X_START = W * (280 / 560);
+    const WAVE_WIDTH = W - WAVE_X_START;
+    const BASE_RADIUS = W * (80 / 560);
+
     const dpr = window.devicePixelRatio || 1;
     canvas.width = W * dpr;
     canvas.height = H * dpr;
@@ -35,7 +63,6 @@ export default function FourierViz() {
       armTip:    isDark ? '#8a8480' : '#9a9490',
       dot:       isDark ? '#e8956d' : '#b85c38',
       wave:      isDark ? '#e8956d' : '#b85c38',
-      waveOld:   isDark ? '#5a3828' : '#e8c4b0',
       grid:      isDark ? '#2a2826' : '#ede8e0',
       text:      isDark ? '#6a6460' : '#aaa098',
     };
@@ -51,7 +78,7 @@ export default function FourierViz() {
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
       ctx.moveTo(WAVE_X_START, CY);
-      ctx.lineTo(W - 10, CY);
+      ctx.lineTo(W - (W * 10 / 560), CY);
       ctx.stroke();
       ctx.setLineDash([]);
 
@@ -59,8 +86,8 @@ export default function FourierViz() {
       let x = CX, y = CY;
       const oddHarmonics = Array.from({ length: terms }, (_, i) => 2 * i + 1);
 
-      oddHarmonics.forEach((n, i) => {
-        const r = (4 / Math.PI) * (80 / n); // radius scaled
+      oddHarmonics.forEach((n) => {
+        const r = (4 / Math.PI) * (BASE_RADIUS / n); 
         const angle = n * tRef.current - Math.PI / 2;
         const nx = x + r * Math.cos(angle);
         const ny = y + r * Math.sin(angle);
@@ -132,20 +159,15 @@ export default function FourierViz() {
 
     frameRef.current = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(frameRef.current);
-  }, [terms, running]);
-
-  // Reset trail when terms change
-  useEffect(() => {
-    trailRef.current = [];
-  }, [terms]);
+  }, [terms, running, dimensions]); // Reacts to dynamic resize
 
   return (
-    <div className="widget-island" style={{ width: '100%', margin: '2rem 0' }}>
+    <figure className="widget-island" ref={containerRef}>
       <canvas
         ref={canvasRef}
-        style={{ width: '100%', maxWidth: W + 'px', display: 'block', borderRadius: '4px' }}
+        style={{ width: '100%', display: 'block', borderRadius: '4px' }}
       />
-      <div style={{
+      <figcaption style={{
         marginTop: '0.875rem',
         display: 'flex',
         alignItems: 'center',
@@ -182,7 +204,7 @@ export default function FourierViz() {
         >
           {running ? 'pause' : 'play'}
         </button>
-      </div>
-    </div>
+      </figcaption>
+    </figure>
   );
 }

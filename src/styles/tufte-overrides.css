@@ -25,8 +25,17 @@ code {
 }
 
 .widget-island {
+  width: 55%;
   margin: 2.5rem auto;
-  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* On smaller screens where sidenotes drop to the bottom, let it take full width */
+@media (max-width: 760px) {
+  .widget-island {
+    width: 100%;
+  }
 }
 
 .katex-display {
