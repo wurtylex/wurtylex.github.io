@@ -5,7 +5,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
 export default defineConfig({
-  site: 'https://wurtylex.github.io',
+  site: 'https://wurtle.dev',
   integrations: [
     mdx({
       remarkPlugins: [remarkMath],
