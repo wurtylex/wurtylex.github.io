@@ -7,12 +7,11 @@ import rehypeKatex from 'rehype-katex';
 export default defineConfig({
   site: 'https://wurtylex.github.io',
   integrations: [
-    mdx(),
+    mdx({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex],
+    }),
     react(),
   ],
-  markdown: {
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex],
-  },
   output: 'static',
 });
