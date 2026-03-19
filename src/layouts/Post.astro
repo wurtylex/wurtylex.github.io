@@ -3,6 +3,13 @@ import Base from './Base.astro';
 import '../styles/tufte-overrides.css';
 
 const { frontmatter } = Astro.props;
+
+const formatDate = (date) => new Date(date).toISOString().slice(0, 10);
+
+const pubDate = formatDate(frontmatter.date);
+const updatedDate = frontmatter.lastUpdated ? formatDate(frontmatter.lastUpdated) : null;
+
+const isRevised = updatedDate && updatedDate !== pubDate;
 ---
 
 <Base title={frontmatter.title} description={frontmatter.description}>
@@ -11,8 +18,16 @@ const { frontmatter } = Astro.props;
 
     <p class="subtitle">
       {frontmatter.description}
-      &nbsp; &middot; &nbsp;
-      <time>{new Date(frontmatter.date).toISOString().slice(0, 10)}</time>
+      <br />
+      <span style="opacity: 0.6; font-size: 0.9em;">
+        Published: <time datetime={pubDate}>{pubDate}</time>
+        {isRevised && (
+          <>
+            &nbsp; &middot; &nbsp;
+            Updated: <time datetime={updatedDate}>{updatedDate}</time>
+          </>
+        )}
+      </span>
     </p>
 
     <section>
