@@ -162,12 +162,12 @@ export default function FourierViz() {
   }, [terms, running, dimensions]); // Reacts to dynamic resize
 
   return (
-    <figure className="widget-island" ref={containerRef}>
+    <div className="widget-island" ref={containerRef}>
       <canvas
         ref={canvasRef}
-        style={{ width: '100%', display: 'block', borderRadius: '4px' }}
+        style={{ width: '100%', display: 'block' }}
       />
-      <figcaption style={{
+      <div style={{
         marginTop: '0.875rem',
         display: 'flex',
         alignItems: 'center',
@@ -181,7 +181,7 @@ export default function FourierViz() {
           <span style={{ color: 'inherit', opacity: 0.7 }}>Terms:</span>
           <input
             type="range"
-            min={1} max={11} step={1} 
+            min={1} max={11} step={1}
             value={terms}
             onChange={e => setTerms(Number(e.target.value))}
             style={{ width: '120px', accentColor: '#e8956d' }}
@@ -205,7 +205,7 @@ export default function FourierViz() {
         >
           {running ? 'pause' : 'play'}
         </button>
-      </figcaption>
-    </figure>
+      </div>
+    </div>
   );
 }

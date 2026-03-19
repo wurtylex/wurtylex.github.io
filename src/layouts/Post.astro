@@ -4,15 +4,12 @@ import '../styles/tufte-overrides.css';
 
 const { frontmatter } = Astro.props;
 
-// 1. Parse and format the publication date
 const pubDateRaw = frontmatter.date ? new Date(frontmatter.date) : new Date();
 const pubDate = pubDateRaw.toISOString().slice(0, 10);
 
-// 2. Parse and format the last updated date (if it exists)
 const updatedDateRaw = frontmatter.lastUpdated ? new Date(frontmatter.lastUpdated) : null;
 const updatedDate = updatedDateRaw ? updatedDateRaw.toISOString().slice(0, 10) : null;
 
-// 3. Logic: Only show the update date if it's actually a different day than published
 const isRevised = updatedDate && updatedDate !== pubDate;
 ---
 
