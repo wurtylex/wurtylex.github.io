@@ -25,11 +25,8 @@ code {
 }
 
 .widget-island {
-  position: relative;
-  left: 27.5%;
-  transform: translateX(-50%);
   max-width: 55%;
-  text-align: center;
+  margin: 2.5rem auto;
   background: transparent;
 }
 
