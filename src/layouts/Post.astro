@@ -3,17 +3,6 @@ import Base from './Base.astro';
 import '../styles/tufte-overrides.css';
 
 const { frontmatter } = Astro.props;
-
-// 1. Parse and format the publication date
-const pubDateRaw = frontmatter.date ? new Date(frontmatter.date) : new Date();
-const pubDate = pubDateRaw.toISOString().slice(0, 10);
-
-// 2. Parse and format the last updated date (if it exists)
-const updatedDateRaw = frontmatter.lastUpdated ? new Date(frontmatter.lastUpdated) : null;
-const updatedDate = updatedDateRaw ? updatedDateRaw.toISOString().slice(0, 10) : null;
-
-// 3. Logic: Only show the update date if it's actually a different day than published
-const isRevised = updatedDate && updatedDate !== pubDate;
 ---
 
 <Base title={frontmatter.title} description={frontmatter.description}>
@@ -22,16 +11,8 @@ const isRevised = updatedDate && updatedDate !== pubDate;
 
     <p class="subtitle">
       {frontmatter.description}
-      <br />
-      <span style="display: block; margin-top: 0.5rem; opacity: 0.7; font-size: 0.9em;">
-        Published: <time datetime={pubDate}>{pubDate}</time>
-        {isRevised && (
-          <>
-            &nbsp; &middot; &nbsp;
-            Last Updated: <time datetime={updatedDate}>{updatedDate}</time>
-          </>
-        )}
-      </span>
+      &nbsp; &middot; &nbsp;
+      <time>{new Date(frontmatter.date).toISOString().slice(0, 10)}</time>
     </p>
 
     <section>
@@ -39,16 +20,3 @@ const isRevised = updatedDate && updatedDate !== pubDate;
     </section>
   </article>
 </Base>
-
-<style>
-  /* Ensuring the subtitle stays within Tufte's main column bounds */
-  .subtitle {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    line-height: 1.4;
-  }
-  
-  time {
-    font-variant-numeric: tabular-nums;
-  }
-</style>
