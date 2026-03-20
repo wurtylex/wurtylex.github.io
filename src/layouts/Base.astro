@@ -13,7 +13,6 @@ const { title, description } = Astro.props;
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Tufte uses ET Book; add JetBrains Mono for code -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
@@ -29,4 +28,13 @@ const { title, description } = Astro.props;
   <body>
     <slot />
   </body>
+
+  <footer style="margin-top: 4rem; padding: 2rem 0; border-top: 1px solid #e8e2d8; font-size: 0.8em; opacity: 0.5;">
+    <p>© {new Date().getFullYear()} wurtylex · Built with <a href="https://astro.build">astro</a> </p>
+  </footer>
+
+  <meta name="author" content="wurtylex" />
+  <meta name="copyright" content="wurtylex" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
 </html>
