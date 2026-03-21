@@ -5,7 +5,6 @@ body {
 }
 
 article > h1 {
-  margin-bottom: 1rem;
   margin-top: 0;
 }
 
@@ -26,17 +25,9 @@ code {
 }
 
 .widget-island {
-  width: 55%;
+  max-width: 100%;
   margin: 2.5rem auto;
-  padding: 0;
-  border: none;
-}
-
-/* On smaller screens where sidenotes drop to the bottom, let it take full width */
-@media (max-width: 760px) {
-  .widget-island {
-    width: 100%;
-  }
+  background: transparent;
 }
 
 .katex-display {
@@ -49,4 +40,48 @@ code {
 .katex-display > .katex {
   display: inline-block;
   text-align: left;
+}
+
+[data-theme="dark"] body {
+  background-color: #151515;
+  color: #ddd;
+}
+
+[data-theme="dark"] a:link,
+[data-theme="dark"] .tufte-underline,
+[data-theme="dark"] .hover-tufte-underline:hover {
+  text-shadow: 0.03em 0 #151515, -0.03em 0 #151515, 0 0.03em #151515, 0 -0.03em #151515, 0.06em 0 #151515, -0.06em 0 #151515, 0.09em 0 #151515, -0.09em 0 #151515, 0.12em 0 #151515, -0.12em 0 #151515, 0.15em 0 #151515, -0.15em 0 #151515;
+}
+
+[data-theme="light"] body {
+  background-color: #f5f0e8;
+  color: #222;
+}
+
+[data-theme="light"] a:link,
+[data-theme="light"] .tufte-underline,
+[data-theme="light"] .hover-tufte-underline:hover {
+  text-shadow: 0.03em 0 #f5f0e8, -0.03em 0 #f5f0e8, 0 0.03em #f5f0e8, 0 -0.03em #f5f0e8, 0.06em 0 #f5f0e8, -0.06em 0 #f5f0e8, 0.09em 0 #f5f0e8, -0.09em 0 #f5f0e8, 0.12em 0 #f5f0e8, -0.12em 0 #f5f0e8, 0.15em 0 #f5f0e8, -0.15em 0 #f5f0e8;
+}
+
+#theme-toggle {
+  color: #111;
+  border-color: #111;
+}
+
+[data-theme="dark"] #theme-toggle {
+  color: #ddd;
+  border-color: #ddd;
+}
+
+[data-theme="light"] #theme-toggle {
+  color: #111;
+  border-color: #111;
+}
+
+@media (prefers-color-scheme: dark) {
+  #theme-toggle {
+    color: #ddd;
+    border-color: #ddd;
+  }
 }
