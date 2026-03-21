@@ -7,6 +7,9 @@ lastUpdated: 2026-03-19
 ---
 
 import SN from '../../components/SN.astro';
+import Cite from '../../components/Cite.astro';
+import References from '../../components/References.astro';
+import { references } from './references.js';
 import FourierViz from './figures/FourierViz';
 
 <div style={{
@@ -21,7 +24,7 @@ import FourierViz from './figures/FourierViz';
   <strong>Note:</strong> This post was written by an AI and is temporarily here just to make sure posts can render properly.
 </div>
 
-Joseph Fourier's central claim, published in 1822, was that *any* periodic
+Joseph Fourier's central claim, published in 1822<Cite id="fourier1822" refs={references} />, was that *any* periodic
 signal — no matter how jagged or irregular — can be expressed as a sum of
 simple sine waves.<SN id="s1">Fourier made this claim in the context of heat
 diffusion. His contemporaries, including Lagrange, were deeply skeptical. It
@@ -57,13 +60,15 @@ symmetry of the square wave. Because it is an odd function — symmetric under
 both time-reversal and sign-flip — its Fourier series contains only sine
 terms. And because it has half-wave symmetry, only odd harmonics survive.
 Even harmonics cancel out.</SN> The coefficient on each term shrinks as
-$1/n$, which is why higher harmonics matter less and less.
+$\frac{1}{n}$, which is why higher harmonics matter less and less.
 
 What Fourier gave us was not just a mathematical trick but a new way of
 *seeing* signals. Instead of thinking about a waveform as a shape in time,
 you can think of it as a recipe: a list of frequencies and their amplitudes.
 This is exactly what your phone's microphone does when it listens to
 music,<SN id="s4">The Fast Fourier Transform algorithm, developed by Cooley
-and Tukey in 1965, makes this computation practical. It runs in O(n log n)
-rather than O(n²), which matters enormously when n is large.</SN> and what
+and Tukey in 1965, makes this computation practical. It runs in $O(n \log n)$
+rather than $O(n^2)$, which matters enormously when n is large.</SN> and what
 an MRI scanner does when it reconstructs an image from radio signals.
+
+<References refs={references} />

@@ -1,0 +1,25 @@
+:root {
+  --border-color: #d0c8bc;
+  --bg-color: #fffff8;
+  --text-color: #111;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    --border-color: #3a3835;
+    --bg-color: #151515;
+    --text-color: #ddd;
+  }
+}
+
+[data-theme="dark"] {
+  --border-color: #3a3835;
+  --bg-color: #151515;
+  --text-color: #ddd;
+}
+
+[data-theme="light"] {
+  --border-color: #d0c8bc;
+  --bg-color: #f5f0e8;
+  --text-color: #222;
+}

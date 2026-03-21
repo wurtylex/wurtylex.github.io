@@ -1,0 +1,23 @@
+---
+const { refs } = Astro.props;
+const entries = Object.entries(refs);
+---
+
+<!---For now we go borderless-->
+<section class="references" style="margin-top: 0.5rem; border-top: 0px solid var(--border-color); padding-top: 0rem; width: 100%;">
+  <h3 style="font-size: 1rem; margin-bottom: 1rem; font-style: normal;">References</h3>
+  <table style="width: 100%; border-collapse: collapse; font-size: 0.85em; line-height: 1.7;">
+    {entries.map(([key, r], i) => (
+      <tr id={`ref-${key}`} style="vertical-align: top;">
+        <td style="padding-right: 0.25rem; opacity: 0.5; white-space: nowrap; width: 2rem;">[{i + 1}]</td>
+        <td>
+          {r.author} ({r.year}). <em>{r.title}</em>
+          {r.journal && `. ${r.journal}`}
+          {r.volume && `, ${r.volume}`}
+          {r.pages && `, pp. ${r.pages}`}
+          {r.publisher && `. ${r.publisher}`}.
+        </td>
+      </tr>
+    ))}
+  </table>
+</section>

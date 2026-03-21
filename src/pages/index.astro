@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import '../styles/tufte-overrides.css';
+import '../styles/main.css';
 
 const postFiles = import.meta.glob('./**/index.mdx', { eager: true });
 const posts = Object.values(postFiles) as any[];

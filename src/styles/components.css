@@ -1,0 +1,30 @@
+.sidenote,
+.marginnote {
+  border-left: 2px solid var(--border-color);
+  padding-left: 0.8rem;
+}
+
+.widget-island {
+  max-width: 100%;
+  margin: 2.5rem auto;
+  background: transparent;
+}
+
+.katex-display {
+  display: block;
+  width: 55%;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.katex-display > .katex {
+  display: inline-block;
+  text-align: left;
+}
+
+.references table,
+.references td {
+  width: auto;
+  float: none !important;
+  margin-left: 0 !important;
+}
